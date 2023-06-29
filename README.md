@@ -13,7 +13,7 @@ Aim behind this extensive project was to learn the intricasies of Spring-boot an
 - Hibernate & Java Persistence API
 - PostMan (API Requests)
 - Other implementations like RequestMappings, PathVariables, SpringRest Controllers, Pagination, Sorting, Authentication & Tokenization etc
-- Cloud Hosting: AWS RDS and AWS Elatic Bean Stalk
+- Cloud Hosting: AWS RDS and AWS Elastic Bean Stalk
 
 Screenshots:
 
