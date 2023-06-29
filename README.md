@@ -11,9 +11,17 @@ Aim behind this extensive project was to learn the intricasies of Spring-boot an
 - JDBC: MySQL databases
 - REST API (Http)
 - Hibernate & Java Persistence API
-- Cloud Hosting: AWS RDS and AWS Elatic Bean Stalk
 - PostMan (API Requests)
 - Other implementations like RequestMappings, PathVariables, SpringRest Controllers, Pagination, Sorting, Authentication & Tokenization etc
+- Cloud Hosting: AWS RDS and AWS Elatic Bean Stalk
 
-Screenshots Attached Below:
+Screenshots:
 
+# DataBase Config
+<img width="992" alt="Screenshot 1" src="https://github.com/AnshGupta01/blog-app-apis/assets/26479077/88448405-c73d-49e3-bdc2-ad56c362c94e">
+
+# Swagger-UI
+![Screenshot 3](https://github.com/AnshGupta01/blog-app-apis/assets/26479077/325eb1dc-6485-4c1d-b0aa-984f577710b7)
+
+# PostMan API Client
+<img width="1440" alt="Screenshot (2)" src="https://github.com/AnshGupta01/blog-app-apis/assets/26479077/80e19648-f01e-4a44-aecd-0f7ca4a5aeb3">
