@@ -1,7 +1,9 @@
 package com.ansh.blog.blogappapis.services;
-import java.util.List;
+
 import com.ansh.blog.blogappapis.payloads.PostDto;
 import com.ansh.blog.blogappapis.payloads.PostResponse;
+
+import java.util.List;
 
 public interface PostService {
     //create

@@ -1,8 +1,8 @@
 package com.ansh.blog.blogappapis.services;
 
-import java.util.List;
-
 import com.ansh.blog.blogappapis.payloads.CategoryDto;
+
+import java.util.List;
 
 public interface CategoryService {
     //no need to use public keyword in interfaces

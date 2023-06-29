@@ -1,16 +1,20 @@
 package com.ansh.blog.blogappapis.services.impl;
-import java.util.List;
-import java.util.stream.Collectors;
 
-import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
+import com.ansh.blog.blogappapis.config.AppConstants;
+import com.ansh.blog.blogappapis.entity.Role;
 import com.ansh.blog.blogappapis.entity.User;
+import com.ansh.blog.blogappapis.exceptions.ResourceNotFoundException;
 import com.ansh.blog.blogappapis.payloads.UserDto;
+import com.ansh.blog.blogappapis.repository.RoleRepo;
 import com.ansh.blog.blogappapis.repository.UserRepo;
 import com.ansh.blog.blogappapis.services.UserService;
-import com.ansh.blog.blogappapis.exceptions.ResourceNotFoundException;
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -18,6 +22,10 @@ public class UserServiceImpl implements UserService {
     private UserRepo userRepo;
     @Autowired
     private ModelMapper modelMapper;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+    @Autowired
+    private RoleRepo roleRepo;
 
     @Override
     public UserDto createUser(UserDto userDto) {
@@ -76,5 +84,20 @@ public class UserServiceImpl implements UserService {
     public UserDto usertoDto(User user){
         UserDto userDto = this.modelMapper.map(user, UserDto.class);
         return userDto;
+    }
+
+    @Override
+    public UserDto registerNewUser(UserDto userDto) {
+        User user = this.modelMapper.map(userDto,User.class);
+
+        //password encoding
+        user.setPassword(this.passwordEncoder.encode(user.getPassword()));
+
+        //roles
+        Role role = this.roleRepo.findById(AppConstants.NORMAL_USER).get();
+        user.getRoles().add(role);
+        User newUser = this.userRepo.save(user);
+        return this.modelMapper.map(newUser, UserDto.class);
+
     }
 }

@@ -1,23 +1,20 @@
 package com.ansh.blog.blogappapis.controllers;
-import java.util.List;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
 
 import com.ansh.blog.blogappapis.config.AppConstants;
 import com.ansh.blog.blogappapis.payloads.ApiResponse;
 import com.ansh.blog.blogappapis.payloads.PostDto;
 import com.ansh.blog.blogappapis.payloads.PostResponse;
+import com.ansh.blog.blogappapis.services.FileService;
 import com.ansh.blog.blogappapis.services.PostService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/")
@@ -25,6 +22,12 @@ public class PostController {
     
     @Autowired
     private PostService postService;
+
+    @Autowired
+    private FileService fileService;
+
+    @Value("${project.image}")
+    private String path;
 
     //create
     @PostMapping("/user/{userId}/category/{categoryId}/posts")
@@ -91,5 +94,17 @@ public class PostController {
 
         List<PostDto> result = this.postService.searchPosts(keywords);
         return new ResponseEntity<List<PostDto>>(result, HttpStatus.OK);
+    }
+
+    //post image upload
+    @PostMapping("/post/image/upload/{postId}")
+    public ResponseEntity<PostDto> uploadPostImage(@RequestParam MultipartFile image
+                                                ,@PathVariable Integer postId) throws IOException {
+
+        PostDto postDto = this.postService.getPostById(postId);
+        String fileName = this.fileService.uploadImage(path,image);
+        postDto.setImageName(fileName);
+        PostDto updatedPost = this.postService.updatePost(postDto,postId);
+        return new ResponseEntity<PostDto>(updatedPost,HttpStatus.OK);
     }
 }

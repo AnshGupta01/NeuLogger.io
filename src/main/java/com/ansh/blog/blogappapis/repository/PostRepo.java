@@ -1,16 +1,15 @@
 package com.ansh.blog.blogappapis.repository;
 
-import java.util.List;
-
+import com.ansh.blog.blogappapis.entity.Category;
+import com.ansh.blog.blogappapis.entity.Post;
+import com.ansh.blog.blogappapis.entity.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-import com.ansh.blog.blogappapis.entity.Category;
-import com.ansh.blog.blogappapis.entity.Post;
-import com.ansh.blog.blogappapis.entity.User;
+import java.util.List;
 
 public interface PostRepo extends JpaRepository<Post,Integer> {   
     List<Post> findByUser(User user);
