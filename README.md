@@ -7,7 +7,7 @@ Aim behind this extensive project was to learn the intricasies of Spring-boot an
 
 # Technologies Used  
 - JAVA: Spring-boot (2.6.6)
-- Spring Security using JWT
+- Spring Security using JWT (HS512 Alogrithm)
 - JDBC: MySQL databases
 - REST API (Http)
 - Hibernate & Java Persistence API
