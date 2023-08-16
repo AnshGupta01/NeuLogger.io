@@ -13,8 +13,51 @@ import {
 } from "reactstrap";
 import Base from "../Base";
 import backgroundImage from "./background_image.jpg";
+import { useEffect, useState } from "react";
 
 const Signup = () => {
+  const [data, setData] = useState({
+    name: "",
+    email: "",
+    password: "",
+    about: "",
+  });
+
+  const [error, setError] = useState({
+    errorrs: {},
+    isError: false,
+  });
+
+  useEffect(() => {
+    console.log(data);
+  }, [data]);
+
+  //Handle change function
+  const handleChange = (event, property) => {
+    //Setting values dynamically
+    setData({ ...data, [property]: event.target.value });
+  };
+
+  //Resetting the form
+  const resetData = () => {
+    setData({
+      name: "",
+      email: "",
+      password: "",
+      about: "",
+    });
+  }
+
+  //Submitting the form
+  const submitForm = (event) => {
+    event.preventDefault()
+    console.log(data);
+
+    //Validating the form
+
+    //Calling server API for sending the data
+  };
+
   return (
     <div
       style={{
@@ -32,16 +75,28 @@ const Signup = () => {
                   <h4>Fill Information for Registration !!</h4>
                 </CardHeader>
                 <CardBody>
-                  <Form>
+                  <Form onSubmit={submitForm}>
                     {/* Name field */}
                     <FormGroup>
                       <Label for="name">Enter your Name</Label>
-                      <Input type="text" placeholder="Enter here" id="name" />
+                      <Input
+                        type="text"
+                        placeholder="Enter here"
+                        id="name"
+                        onChange={(e) => handleChange(e, "name")}
+                        value={data.name}
+                      />
                     </FormGroup>
                     {/* Email field */}
                     <FormGroup>
                       <Label for="email">Enter your Email</Label>
-                      <Input type="email" placeholder="Enter here" id="email" />
+                      <Input
+                        type="email"
+                        placeholder="Enter here"
+                        id="email"
+                        onChange={(e) => handleChange(e, "email")}
+                        value={data.email}
+                      />
                     </FormGroup>
                     {/* Password field */}
                     <FormGroup>
@@ -50,6 +105,8 @@ const Signup = () => {
                         type="password"
                         placeholder="Enter here"
                         id="password"
+                        onChange={(e) => handleChange(e, "password")}
+                        value={data.password}
                       />
                     </FormGroup>
                     {/* Text area about field */}
@@ -60,6 +117,8 @@ const Signup = () => {
                         placeholder="Enter here"
                         id="about"
                         style={{ height: "200px" }}
+                        onChange={(e) => handleChange(e, "about")}
+                        value={data.about}
                       />
                     </FormGroup>
                     <Container className="text-center">
@@ -71,6 +130,7 @@ const Signup = () => {
                         color="secondary"
                         type="reset"
                         className="ms-2"
+                        onClick={resetData}
                       >
                         Reset
                       </Button>
