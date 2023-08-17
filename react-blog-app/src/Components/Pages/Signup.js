@@ -13,7 +13,7 @@ import {
 } from "reactstrap";
 import Base from "../Base";
 import backgroundImage from "./background_image.jpg";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 const Signup = () => {
   const [data, setData] = useState({
@@ -22,15 +22,40 @@ const Signup = () => {
     password: "",
     about: "",
   });
+  const [formErrors, setformErrors] = useState({});
+  const [isSubmit, setIsSubmit] = useState(false);
 
-  const [error, setError] = useState({
-    errorrs: {},
-    isError: false,
-  });
+  // useEffect(() => {
+  //   console.log(formErrors);
+  //   if (Object.keys(formErrors).length === 0 && isSubmit) {
+  //     console.log(data);
+  //   }
+  // }, [formErrors]);
 
-  useEffect(() => {
-    console.log(data);
-  }, [data]);
+  //Form data validation function
+  const validate = (values) => {
+    const errors = {};
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
+    if (!values.name) {
+      errors.name = "Name is required!!";
+    }
+    if (!values.email) {
+      errors.email = "Email is required!!";
+    } else if (!regex.test(values.email)) {
+      errors.email = "Email is invalid";
+    }
+    if (!values.password) {
+      errors.password = "Password is required!!";
+    } else if (values.password.length < 4) {
+      errors.password = "Password must be atleast 4 characters long";
+    } else if (values.password.length > 10) {
+      errors.password = "Password canno be more than 10 characters";
+    }
+    if (!values.about) {
+      errors.about = "About is required";
+    }
+    return errors;
+  };
 
   //Handle change function
   const handleChange = (event, property) => {
@@ -46,14 +71,15 @@ const Signup = () => {
       password: "",
       about: "",
     });
-  }
+  };
 
   //Submitting the form
   const submitForm = (event) => {
-    event.preventDefault()
-    console.log(data);
-
+    event.preventDefault();
     //Validating the form
+    setformErrors(validate(data));
+    setIsSubmit(true);
+    console.log(data);
 
     //Calling server API for sending the data
   };
@@ -68,6 +94,13 @@ const Signup = () => {
     >
       <Base>
         <Container>
+          {Object.keys(formErrors).length === 0 && isSubmit ? (
+            <div className="alert alert-success mt-4">
+              Signed in successfully
+            </div>
+          ) : (
+            <div className="alert alert-danger mt-4">Error in signing in</div>
+          )}
           <Row className="mt-4 mb-4">
             <Col sm={{ size: 6, offset: 3 }}>
               <Card color="dark" outline>
@@ -86,6 +119,7 @@ const Signup = () => {
                         onChange={(e) => handleChange(e, "name")}
                         value={data.name}
                       />
+                      <p style={{ color: "red" }}>{formErrors.name}</p>
                     </FormGroup>
                     {/* Email field */}
                     <FormGroup>
@@ -97,6 +131,7 @@ const Signup = () => {
                         onChange={(e) => handleChange(e, "email")}
                         value={data.email}
                       />
+                      <p style={{ color: "red" }}>{formErrors.email}</p>
                     </FormGroup>
                     {/* Password field */}
                     <FormGroup>
@@ -108,6 +143,7 @@ const Signup = () => {
                         onChange={(e) => handleChange(e, "password")}
                         value={data.password}
                       />
+                      <p style={{ color: "red" }}>{formErrors.password}</p>
                     </FormGroup>
                     {/* Text area about field */}
                     <FormGroup>
@@ -120,6 +156,7 @@ const Signup = () => {
                         onChange={(e) => handleChange(e, "about")}
                         value={data.about}
                       />
+                      <p style={{ color: "red" }}>{formErrors.about}</p>
                     </FormGroup>
                     <Container className="text-center">
                       <Button outline color="dark">
