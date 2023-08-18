@@ -1,7 +1,5 @@
 package com.ansh.blog.blogappapis.payloads;
 
-
-import com.ansh.blog.blogappapis.entity.Role;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -18,10 +16,12 @@ import java.util.Set;
 public class UserDto {
     
     private int id;
-    @NotEmpty
+
+    @NotEmpty(message = "Name cannot be empty")
     @Size(min = 4, message = "User's name must be greater than 4 characters")
     private String name;
 
+    @NotEmpty(message = "Email cannot be empty")
     @Email(message = "Your Email Address is not valid")
     private String email;
 
@@ -29,7 +29,7 @@ public class UserDto {
     @Size(min=3, max=10, message = "Password cannot be less than 3 characters or more than 10 characters")
     private String password;
 
-    @NotEmpty
+    @NotEmpty(message = "About cannot be empty")
     private String about;
 
     private Set<RoleDto> roles= new HashSet<>();

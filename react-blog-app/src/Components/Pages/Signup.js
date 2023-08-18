@@ -10,10 +10,13 @@ import {
   Input,
   Label,
   Row,
+  FormFeedback,
 } from "reactstrap";
 import Base from "../Base";
 import backgroundImage from "./background_image.jpg";
 import { useState } from "react";
+import { signUp } from "../../Services/user_service";
+import { toast } from "react-toastify";
 
 const Signup = () => {
   const [data, setData] = useState({
@@ -22,40 +25,10 @@ const Signup = () => {
     password: "",
     about: "",
   });
-  const [formErrors, setformErrors] = useState({});
-  const [isSubmit, setIsSubmit] = useState(false);
-
-  // useEffect(() => {
-  //   console.log(formErrors);
-  //   if (Object.keys(formErrors).length === 0 && isSubmit) {
-  //     console.log(data);
-  //   }
-  // }, [formErrors]);
-
-  //Form data validation function
-  const validate = (values) => {
-    const errors = {};
-    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
-    if (!values.name) {
-      errors.name = "Name is required!!";
-    }
-    if (!values.email) {
-      errors.email = "Email is required!!";
-    } else if (!regex.test(values.email)) {
-      errors.email = "Email is invalid";
-    }
-    if (!values.password) {
-      errors.password = "Password is required!!";
-    } else if (values.password.length < 4) {
-      errors.password = "Password must be atleast 4 characters long";
-    } else if (values.password.length > 10) {
-      errors.password = "Password canno be more than 10 characters";
-    }
-    if (!values.about) {
-      errors.about = "About is required";
-    }
-    return errors;
-  };
+  const [error, setError] = useState({
+    errors: {},
+    isError: false,
+  });
 
   //Handle change function
   const handleChange = (event, property) => {
@@ -76,12 +49,35 @@ const Signup = () => {
   //Submitting the form
   const submitForm = (event) => {
     event.preventDefault();
-    //Validating the form
-    setformErrors(validate(data));
-    setIsSubmit(true);
+
     console.log(data);
 
     //Calling server API for sending the data
+    signUp(data)
+      .then((resp) => {
+        console.log(resp);
+        console.log("Sucessfully logged");
+        toast.success("Sucessfully registered");
+        setData({
+          name: "",
+          email: "",
+          password: "",
+          about: "",
+        });
+        setError({
+          errors: {},
+          isError: false,
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+        console.log("Error logged");
+        //Handle errors here
+        setError({
+          errors: err,
+          isError: true,
+        });
+      });
   };
 
   return (
@@ -94,13 +90,6 @@ const Signup = () => {
     >
       <Base>
         <Container>
-          {Object.keys(formErrors).length === 0 && isSubmit ? (
-            <div className="alert alert-success mt-4">
-              Signed in successfully
-            </div>
-          ) : (
-            <div className="alert alert-danger mt-4">Error in signing in</div>
-          )}
           <Row className="mt-4 mb-4">
             <Col sm={{ size: 6, offset: 3 }}>
               <Card color="dark" outline>
@@ -118,8 +107,13 @@ const Signup = () => {
                         id="name"
                         onChange={(e) => handleChange(e, "name")}
                         value={data.name}
+                        invalid={
+                          error.errors?.response?.data?.name ? true : false
+                        }
                       />
-                      <p style={{ color: "red" }}>{formErrors.name}</p>
+                      <FormFeedback>
+                        {error.errors?.response?.data?.name}
+                      </FormFeedback>
                     </FormGroup>
                     {/* Email field */}
                     <FormGroup>
@@ -130,8 +124,13 @@ const Signup = () => {
                         id="email"
                         onChange={(e) => handleChange(e, "email")}
                         value={data.email}
+                        invalid={
+                          error.errors?.response?.data?.email ? true : false
+                        }
                       />
-                      <p style={{ color: "red" }}>{formErrors.email}</p>
+                      <FormFeedback>
+                        {error.errors?.response?.data?.email}
+                      </FormFeedback>
                     </FormGroup>
                     {/* Password field */}
                     <FormGroup>
@@ -142,8 +141,13 @@ const Signup = () => {
                         id="password"
                         onChange={(e) => handleChange(e, "password")}
                         value={data.password}
+                        invalid={
+                          error.errors?.response?.data?.password ? true : false
+                        }
                       />
-                      <p style={{ color: "red" }}>{formErrors.password}</p>
+                      <FormFeedback>
+                        {error.errors?.response?.data?.password}
+                      </FormFeedback>
                     </FormGroup>
                     {/* Text area about field */}
                     <FormGroup>
@@ -155,8 +159,13 @@ const Signup = () => {
                         style={{ height: "200px" }}
                         onChange={(e) => handleChange(e, "about")}
                         value={data.about}
+                        invalid={
+                          error.errors?.response?.data?.about ? true : false
+                        }
                       />
-                      <p style={{ color: "red" }}>{formErrors.about}</p>
+                      <FormFeedback>
+                        {error.errors?.response?.data?.about}
+                      </FormFeedback>
                     </FormGroup>
                     <Container className="text-center">
                       <Button outline color="dark">
