@@ -4,13 +4,12 @@ import {
   CardTitle,
   CardSubtitle,
   CardText,
-  Button,
   Container,
   Row,
   Col,
 } from "reactstrap";
-import Base from "../Base";
-import backgroundImage from "./background_image.jpg";
+import Base from "../Parts/Base";
+import backgroundImage from "../../background_image.jpg";
 
 const Home = () => {
   return (

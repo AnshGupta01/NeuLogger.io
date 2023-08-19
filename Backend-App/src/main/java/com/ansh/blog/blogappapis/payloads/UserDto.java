@@ -1,5 +1,7 @@
 package com.ansh.blog.blogappapis.payloads;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -33,5 +35,15 @@ public class UserDto {
     private String about;
 
     private Set<RoleDto> roles= new HashSet<>();
+
+    @JsonIgnore
+    public String getPassword(){
+        return this.password;
+    }
+    //This is used because setter is also affected because of the above property
+    @JsonProperty
+    public void setPassword(String password){
+        this.password=password;
+    }
 }
 

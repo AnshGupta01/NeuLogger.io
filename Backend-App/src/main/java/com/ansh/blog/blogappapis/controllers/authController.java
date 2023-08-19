@@ -1,11 +1,13 @@
 package com.ansh.blog.blogappapis.controllers;
 
+import com.ansh.blog.blogappapis.entity.User;
 import com.ansh.blog.blogappapis.exceptions.ApiException;
 import com.ansh.blog.blogappapis.payloads.JwtAuthRequest;
 import com.ansh.blog.blogappapis.payloads.JwtAuthResponse;
 import com.ansh.blog.blogappapis.payloads.UserDto;
 import com.ansh.blog.blogappapis.security.JwtTokenHelper;
 import com.ansh.blog.blogappapis.services.UserService;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -34,6 +36,9 @@ public class authController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private ModelMapper mapper;
+
     @PostMapping("/login")
     public ResponseEntity<JwtAuthResponse> createToken(
             @RequestBody JwtAuthRequest request
@@ -43,8 +48,10 @@ public class authController {
 
         UserDetails userDetails = this.userDetailsService.loadUserByUsername(request.getUsername());
         String generatedToken = this.jwtTokenHelper.generateToken(userDetails);
+
         JwtAuthResponse response = new JwtAuthResponse();
         response.setToken(generatedToken);
+        response.setUser(this.mapper.map((User)userDetails, UserDto.class));
         return new ResponseEntity<JwtAuthResponse>(response, HttpStatus.OK);
     }
 
