@@ -22,7 +22,7 @@ public class Post {
 
     private String title;
 
-    @Column(length = 10000)
+    @Column(length = 1000000)
     private String content;
 
     private String imageName;
