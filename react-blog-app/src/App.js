@@ -10,7 +10,7 @@ import "react-toastify/dist/ReactToastify.css";
 import Userdashboard from "./Components/Pages/user-routes/Userdashboard";
 import Privateroute from "./Components/Pages/Privateroute";
 import ProfileInfo from "./Components/Pages/user-routes/profileInfo";
-import Feed from "./Components/Pages/Feed";
+import Feed from "./Components/Parts/Feed";
 
 function App() {
   return (

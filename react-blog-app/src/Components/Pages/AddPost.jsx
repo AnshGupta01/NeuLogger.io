@@ -80,7 +80,7 @@ const AddPost = () => {
         setPost({
           title: "",
           content: "",
-          categoryId: "",
+          categoryId:"",
         });
       })
       .catch((err) => {
@@ -118,7 +118,7 @@ const AddPost = () => {
               <Label for="category">Post Category</Label>
               <Input
                 type="select"
-                id="category"
+                id="categoryId"
                 placeholder="Add content here"
                 name="categoryId"
                 onChange={fieldChanged}

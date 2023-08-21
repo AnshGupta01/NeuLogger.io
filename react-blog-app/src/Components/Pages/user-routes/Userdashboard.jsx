@@ -1,6 +1,6 @@
 import React from 'react'
 import Base from '../../Parts/Base'
-import AddPost from '../../Parts/AddPost'
+import AddPost from '../AddPost'
 import { Container } from 'reactstrap'
 
 const Userdashboard = () => {
