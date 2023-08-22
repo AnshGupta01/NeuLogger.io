@@ -11,6 +11,7 @@ import Userdashboard from "./Components/Pages/user-routes/Userdashboard";
 import Privateroute from "./Components/Pages/Privateroute";
 import ProfileInfo from "./Components/Pages/user-routes/profileInfo";
 import Feed from "./Components/Parts/Feed";
+import PostPage from "./Components/Pages/PostPage";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
         <Route path="login" element={<Login />} />
         <Route path="signup" element={<Signup />} />
         <Route path="services" element={<Services />} />
+        <Route path="post" element={<PostPage />} />
         <Route path="/user" element={<Privateroute />}>
           <Route path="dashboard" element={<Userdashboard />} />
           <Route path="profile-info" element={<ProfileInfo/>} />

@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { Button, Card, CardBody, CardText } from "reactstrap";
 
 const Post = ({
@@ -11,11 +12,9 @@ const Post = ({
     <Card className="shadow-sm mt-3">
       <CardBody>
         <h1>{post.title}</h1>
-        <CardText>
-          {post.content.substring(0,50)}...
-        </CardText>
+        <CardText dangerouslySetInnerHTML={{__html: post.content.substring(0,60)}}/>
         <div>
-          <Button>Read More</Button>
+          <Link className="btn btn-secondary border-0" to="/post">Read More</Link>
         </div>
       </CardBody>
     </Card>

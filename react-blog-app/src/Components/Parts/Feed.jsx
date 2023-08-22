@@ -24,15 +24,23 @@ const Feed = () => {
 
   useEffect(() => {
     //load all posts from server
-    changePage(0)
+    changePage(0);
   }, []);
 
-  const changePage=(pageNumber=0, pageSize=5) => {
-    loadAllPosts(pageNumber, pageSize).then((data) => {
-      setPosts(data)
-      window.scroll(0,0)
-    }).catch(err => toast.error("Error in loading posts"))
-  }
+  const changePage = (pageNumber = 0, pageSize = 5) => {
+    if (pageNumber > posts.pageNumber && posts.lastPage) {
+      return;
+    }
+    if (pageNumber < posts.pageNumber && posts.pageNumber == 0) {
+      return;
+    }
+    loadAllPosts(pageNumber, pageSize)
+      .then((data) => {
+        setPosts(data);
+        window.scroll(0, 0);
+      })
+      .catch((err) => toast.error("Error in loading posts"));
+  };
 
   return (
     <Base>
@@ -52,16 +60,29 @@ const Feed = () => {
 
               <Container className="mt-3 mb-5">
                 <Pagination>
-                  <PaginationItem disabled={posts.pageNumber == 0} onClick={() => changePage(--posts.pageNumber)}>
+                  <PaginationItem
+                    disabled={posts.pageNumber == 0}
+                    onClick={() => changePage(posts.pageNumber - 1)}
+                  >
                     <PaginationLink previous></PaginationLink>
                   </PaginationItem>
                   {[...Array(posts.totalPages)].map((item, index) => (
-                    <PaginationItem onClick={()=> changePage(index)} active={index == posts.pageNumber}>
+                    <PaginationItem
+                      onClick={() => {
+                        posts.pageNumber = index;
+                        changePage(index)
+                      }}
+                      active={index == posts.pageNumber}
+                      key={index}
+                    >
                       <PaginationLink>{index + 1}</PaginationLink>
                     </PaginationItem>
                   ))}
 
-                  <PaginationItem disabled={posts.lastPage} onClick={() => changePage(++posts.pageNumber)}>
+                  <PaginationItem
+                    disabled={posts.lastPage}
+                    onClick={() => changePage(posts.pageNumber + 1)}
+                  >
                     <PaginationLink next></PaginationLink>
                   </PaginationItem>
                 </Pagination>
