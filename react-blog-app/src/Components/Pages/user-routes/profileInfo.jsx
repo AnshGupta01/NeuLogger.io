@@ -1,15 +1,14 @@
-import React from 'react'
-import Base from '../../Parts/Base';
+import React from "react";
+import Base from "../../Parts/Base";
 
 const ProfileInfo = () => {
   return (
     <Base>
-    <div>
+      <div>
         <h1>Profile info</h1>
-    </div>
+      </div>
     </Base>
-    
-  )
-}
+  );
+};
 
 export default ProfileInfo;

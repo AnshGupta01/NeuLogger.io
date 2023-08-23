@@ -1,5 +1,5 @@
 import "bootstrap/dist/css/bootstrap.min.css";
-import "./App.css"
+import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./Components/Pages/Home";
 import Login from "./Components/Pages/Login";
@@ -10,7 +10,7 @@ import "react-toastify/dist/ReactToastify.css";
 import Userdashboard from "./Components/Pages/user-routes/Userdashboard";
 import Privateroute from "./Components/Pages/Privateroute";
 import ProfileInfo from "./Components/Pages/user-routes/profileInfo";
-import Feed from "./Components/Parts/Feed";
+import Feed from "./Components/Pages/Feed";
 import PostPage from "./Components/Pages/PostPage";
 
 function App() {
@@ -19,14 +19,14 @@ function App() {
       <ToastContainer position="bottom-center" />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/feed" element={<Feed/>} />
-        <Route path="login" element={<Login />} />
-        <Route path="signup" element={<Signup />} />
-        <Route path="services" element={<Services />} />
-        <Route path="post" element={<PostPage />} />
+        <Route path="/feed" element={<Feed />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/services" element={<Services />} />
+        <Route path="/posts/:id" element={<PostPage />} />
         <Route path="/user" element={<Privateroute />}>
           <Route path="dashboard" element={<Userdashboard />} />
-          <Route path="profile-info" element={<ProfileInfo/>} />
+          <Route path="profile-info" element={<ProfileInfo />} />
         </Route>
       </Routes>
     </BrowserRouter>

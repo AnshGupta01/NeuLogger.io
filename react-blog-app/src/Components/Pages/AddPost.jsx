@@ -80,7 +80,7 @@ const AddPost = () => {
         setPost({
           title: "",
           content: "",
-          categoryId:"",
+          categoryId: "",
         });
       })
       .catch((err) => {
