@@ -15,7 +15,7 @@ import { loadPost } from "../../Services/post_service";
 import { toast } from "react-toastify";
 import { base_url } from "../../Services/helper_service";
 import { createComment } from "../../Services/comment_service";
-import {isLoggedIn } from "../../auth";
+import {getCurrentUser, isLoggedIn } from "../../auth";
 
 const PostPage = () => {
   const { id } = useParams();
@@ -55,10 +55,11 @@ const PostPage = () => {
         console.log(data);
         toast.success("Comment Added")
         setPost({
-          ...post, comments:[...post.comments, data.data]
+          ...post, 
+          comments:[...post.comments, data.data],
         })
         setComment({
-          content:"",
+          content:""
         })
         console.log(comment)
       })
