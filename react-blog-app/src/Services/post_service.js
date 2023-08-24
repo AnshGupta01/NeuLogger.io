@@ -24,3 +24,5 @@ export const loadAllPosts = (pageNumber, pageSize) => {
 export const loadPost = (postId) => {
   return myAxios.get("/posts/" + postId).then((resp) => resp.data);
 };
+
+

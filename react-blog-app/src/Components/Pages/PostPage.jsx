@@ -1,14 +1,28 @@
 import { Link, useParams } from "react-router-dom";
 import Base from "../Parts/Base";
-import { Card, CardBody, CardText, Col, Container, Row } from "reactstrap";
+import {
+  Card,
+  CardBody,
+  CardText,
+  Col,
+  Container,
+  Row,
+  Button,
+  Input,
+} from "reactstrap";
 import { useEffect, useState } from "react";
 import { loadPost } from "../../Services/post_service";
 import { toast } from "react-toastify";
 import { base_url } from "../../Services/helper_service";
+import { createComment } from "../../Services/comment_service";
+import {isLoggedIn } from "../../auth";
 
 const PostPage = () => {
   const { id } = useParams();
   const [post, setPost] = useState(undefined);
+  const [comment, setComment] = useState({
+    content: "",
+  });
 
   useEffect(() => {
     //Load post of postId
@@ -25,6 +39,30 @@ const PostPage = () => {
 
   const printDate = (date) => {
     return new Date(date).toLocaleDateString();
+  };
+
+  const submitPost = () => {
+    if(!isLoggedIn()) {
+      toast.error("Please login first!!")
+      return
+    }
+    if(comment.content.trim() === "") {
+      toast.error("Dont leave comment blank!!")
+      return;
+    }
+    createComment(comment, post.id)
+      .then((data) => {
+        console.log(data);
+        toast.success("Comment Added")
+        setPost({
+          ...post, comments:[...post.comments, data.data]
+        })
+        setComment({
+          content:"",
+        })
+        console.log(comment)
+      })
+      .catch((err) => console.log(err));
   };
 
   return (
@@ -96,6 +134,21 @@ const PostPage = () => {
                   </CardBody>
                 </Card>
               ))}
+            <Card className="mt-3 border-0">
+              <CardBody>
+                <Input
+                  onChange={(event) =>
+                    setComment({ content: event.target.value })
+                  }
+                  value={comment.content}
+                  type="textarea"
+                  placeholder="Enter text here"
+                ></Input>
+                <Button onClick={submitPost} className="mt-2" color="primary">
+                  Submit
+                </Button>
+              </CardBody>
+            </Card>
           </Col>
         </Row>
       </Container>
