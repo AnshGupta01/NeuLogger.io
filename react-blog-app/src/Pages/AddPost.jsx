@@ -8,11 +8,11 @@ import {
   Input,
   Label,
 } from "reactstrap";
-import { loadAllCategories } from "../../Services/category_service";
+import { loadAllCategories } from "../Services/category_service";
 import JoditEditor from "jodit-react";
 import { toast } from "react-toastify";
-import { createPost as doCreatePost } from "../../Services/post_service";
-import { getCurrentUser } from "../../auth";
+import { createPost as doCreatePost } from "../Services/post_service";
+import { getCurrentUser } from "../auth";
 
 const AddPost = () => {
   const [category, setCategory] = useState([]);

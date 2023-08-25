@@ -1,5 +1,5 @@
 import { Link, useParams } from "react-router-dom";
-import Base from "../Parts/Base";
+import Base from "../Components/Base";
 import {
   Card,
   CardBody,
@@ -11,11 +11,11 @@ import {
   Input,
 } from "reactstrap";
 import { useEffect, useState } from "react";
-import { loadPost } from "../../Services/post_service";
+import { loadPost } from "../Services/post_service";
 import { toast } from "react-toastify";
-import { base_url } from "../../Services/helper_service";
-import { createComment } from "../../Services/comment_service";
-import {getCurrentUser, isLoggedIn } from "../../auth";
+import { base_url } from "../Services/helper_service";
+import { createComment } from "../Services/comment_service";
+import {isLoggedIn } from "../auth";
 
 const PostPage = () => {
   const { id } = useParams();
@@ -42,26 +42,26 @@ const PostPage = () => {
   };
 
   const submitPost = () => {
-    if(!isLoggedIn()) {
-      toast.error("Please login first!!")
-      return
+    if (!isLoggedIn()) {
+      toast.error("Please login first!!");
+      return;
     }
-    if(comment.content.trim() === "") {
-      toast.error("Dont leave comment blank!!")
+    if (comment.content.trim() === "") {
+      toast.error("Dont leave comment blank!!");
       return;
     }
     createComment(comment, post.id)
       .then((data) => {
         console.log(data);
-        toast.success("Comment Added")
+        toast.success("Comment Added");
         setPost({
-          ...post, 
-          comments:[...post.comments, data.data],
-        })
+          ...post,
+          comments: [...post.comments, data.data],
+        });
         setComment({
-          content:""
-        })
-        console.log(comment)
+          content: "",
+        });
+        console.log(comment);
       })
       .catch((err) => console.log(err));
   };

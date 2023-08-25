@@ -11,12 +11,12 @@ import {
   Label,
   Row,
 } from "reactstrap";
-import backgroundImage from "../../background_image.jpg";
-import Base from "../Parts/Base";
+import backgroundImage from "../background_image.jpg";
+import Base from "../Components/Base";
 import { useState } from "react";
 import { toast } from "react-toastify";
-import { loginUser } from "../../Services/user_service";
-import { doLogin } from "../../auth";
+import { loginUser } from "../Services/user_service";
+import { doLogin } from "../auth";
 import { useNavigate } from "react-router-dom";
 
 const Login = () => {

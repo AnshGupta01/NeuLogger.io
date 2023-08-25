@@ -13,7 +13,7 @@ import {
   DropdownMenu,
   DropdownItem,
 } from "reactstrap";
-import { doLogout, getCurrentUser, isLoggedIn } from "../../auth";
+import { doLogout, getCurrentUser, isLoggedIn } from "../auth";
 
 const CustomNavbar = () => {
   const [isOpen, setIsOpen] = useState(false);

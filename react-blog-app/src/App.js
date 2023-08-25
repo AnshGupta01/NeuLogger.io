@@ -1,35 +1,38 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Home from "./Components/Pages/Home";
-import Login from "./Components/Pages/Login";
-import Signup from "./Components/Pages/Signup";
-import Services from "./Components/Pages/Services";
+import Home from "./Pages/Home";
+import Login from "./Pages/Login";
+import Signup from "./Pages/Signup";
+import Services from "./Pages/Services";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import Userdashboard from "./Components/Pages/user-routes/Userdashboard";
-import Privateroute from "./Components/Pages/Privateroute";
-import ProfileInfo from "./Components/Pages/user-routes/profileInfo";
-import Feed from "./Components/Pages/Feed";
-import PostPage from "./Components/Pages/PostPage";
+import Userdashboard from "./Components/Userdashboard";
+import Privateroute from "./Components/Privateroute";
+import ProfileInfo from "./Components/profileInfo";
+import Feed from "./Pages/Feed";
+import PostPage from "./Pages/PostPage";
+import UserProvider from "./context/UserProvider";
 
 function App() {
   return (
-    <BrowserRouter>
-      <ToastContainer position="bottom-center" />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/feed" element={<Feed />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Signup />} />
-        <Route path="/services" element={<Services />} />
-        <Route path="/posts/:id" element={<PostPage />} />
-        <Route path="/user" element={<Privateroute />}>
-          <Route path="dashboard" element={<Userdashboard />} />
-          <Route path="profile-info" element={<ProfileInfo />} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
+    <UserProvider>
+      <BrowserRouter>
+        <ToastContainer position="bottom-center" />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/feed" element={<Feed />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/services" element={<Services />} />
+          <Route path="/posts/:id" element={<PostPage />} />
+          <Route path="/user" element={<Privateroute />}>
+            <Route path="dashboard" element={<Userdashboard />} />
+            <Route path="profile-info" element={<ProfileInfo />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </UserProvider>
   );
 }
 

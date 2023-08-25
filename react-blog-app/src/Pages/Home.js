@@ -8,8 +8,8 @@ import {
   Row,
   Col,
 } from "reactstrap";
-import Base from "../Parts/Base";
-import backgroundImage from "../../background_image.jpg";
+import Base from "../Components/Base";
+import backgroundImage from "../background_image.jpg";
 
 const Home = () => {
   return (
