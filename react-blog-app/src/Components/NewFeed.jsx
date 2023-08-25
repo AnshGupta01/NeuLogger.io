@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { loadAllPosts } from "../Services/post_service";
+import { deletePost, loadAllPosts } from "../Services/post_service";
 import { Row, Col } from "reactstrap";
 import Post from "./Post";
 import { toast } from "react-toastify";
@@ -49,6 +49,22 @@ const NewFeed = () => {
     setCurrentPage(currentPage + 1);
   };
 
+  //function to delete post
+  function deleteThePost(post) {
+    //deleting post
+    deletePost(post.id)
+      .then((resp) => {
+        console.log(resp);
+        toast.success("Post is deleted...");
+        let newPostContents = posts.content.filter(p=>p.id != post.id)
+        setPosts({...posts, content: newPostContents})
+      })
+      .catch((err) => {
+        console.log(err);
+        toast.error("Error deleting post");
+      });
+  }
+
   return (
     <div className="container-fluid">
       <Row>
@@ -71,7 +87,7 @@ const NewFeed = () => {
             }
           >
             {posts.content.map((post) => (
-              <Post post={post} key={post.id} />
+              <Post deletePost={deleteThePost} post={post} key={post.id} />
             ))}
           </InfiniteScroll>
 
