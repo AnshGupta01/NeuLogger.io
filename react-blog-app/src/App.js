@@ -13,6 +13,7 @@ import ProfileInfo from "./Components/profileInfo";
 import Feed from "./Pages/Feed";
 import PostPage from "./Pages/PostPage";
 import UserProvider from "./context/UserProvider";
+import Categories from "./Pages/Categories";
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
           <Route path="/signup" element={<Signup />} />
           <Route path="/services" element={<Services />} />
           <Route path="/posts/:id" element={<PostPage />} />
+          <Route path="/categories/:categoryId" element={<Categories />} />
           <Route path="/user" element={<Privateroute />}>
             <Route path="dashboard" element={<Userdashboard />} />
             <Route path="profile-info" element={<ProfileInfo />} />

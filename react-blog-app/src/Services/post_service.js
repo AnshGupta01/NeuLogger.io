@@ -25,4 +25,20 @@ export const loadPost = (postId) => {
   return myAxios.get("/posts/" + postId).then((resp) => resp.data);
 };
 
+//upload post banner image
+export const uploadPostImage = (image, postId) => {
+  let form = new FormData();
+  form.append("image", image);
+  return privateAxios
+    .post(`/post/image/upload/${postId}`, form, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    })
+    .then((resp) => resp.data);
+};
 
+//get category wise posts
+export const loadPostCategoryWise = (categoryId) => {
+  return privateAxios.get(`/category/${categoryId}/posts`).then((resp) => resp.data);
+};
