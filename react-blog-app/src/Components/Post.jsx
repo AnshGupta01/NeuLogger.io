@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Button, Card, CardBody, CardText } from "reactstrap";
 import { getCurrentUser, isLoggedIn } from "../auth";
+import userContext from "../context/userContext";
 
 const Post = ({
   post = {
@@ -11,6 +12,7 @@ const Post = ({
   },
   deletePost,
 }) => {
+  const userContextData = useContext(userContext)
   const [user, setUser] = useState(null);
   const [login, setLogin] = useState(null);
   useEffect(() => {
@@ -29,7 +31,8 @@ const Post = ({
           <Link className="btn btn-secondary border-0" to={"/posts/" + post.id}>
             Read More
           </Link>
-          {isLoggedIn &&
+          
+          {userContextData.user.login &&
             (user && user.id === post.user.id ? (
               <Button
                 onClick={() => deletePost(post)}
@@ -37,6 +40,18 @@ const Post = ({
                 className="ms-2"
               >
                 Delete
+              </Button>
+            ) : (
+              ""
+            ))}
+          {userContextData.user.login &&
+            (user && user.id === post.user.id ? (
+              <Button
+                tag={Link} to={`/user/update-blog/${post.id}`}
+                color="warning"
+                className="ms-2"
+              >
+                Update
               </Button>
             ) : (
               ""

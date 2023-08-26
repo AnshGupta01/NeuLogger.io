@@ -9,11 +9,11 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Userdashboard from "./Components/Userdashboard";
 import Privateroute from "./Components/Privateroute";
-import ProfileInfo from "./Components/profileInfo";
 import Feed from "./Pages/Feed";
 import PostPage from "./Pages/PostPage";
 import UserProvider from "./context/UserProvider";
 import Categories from "./Pages/Categories";
+import UpdateBlog from "./Pages/UpdateBlog";
 
 function App() {
   return (
@@ -30,7 +30,7 @@ function App() {
           <Route path="/categories/:categoryId" element={<Categories />} />
           <Route path="/user" element={<Privateroute />}>
             <Route path="dashboard" element={<Userdashboard />} />
-            <Route path="profile-info" element={<ProfileInfo />} />
+            <Route path="update-blog/:blogId" element={<UpdateBlog />} />
           </Route>
         </Routes>
       </BrowserRouter>

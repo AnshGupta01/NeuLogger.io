@@ -1,19 +1,26 @@
-import React, { useState } from 'react'
-import userContext from './userContext'
+import React, { useEffect } from "react";
+import userContext from "./userContext";
+import { useState } from "react";
+import { getCurrentUser, isLoggedIn } from "../auth";
 
-function userProvider({children}) {
+function UserProvider({ children }) {
+  const [user, setUser] = useState({
+    data: {},
+    login: false,
+  });
 
-    const [user, setUser] = useState({
-        name: "Ansh"
-    })
+  useEffect(() => {
+    setUser({
+      data: getCurrentUser(),
+      login: isLoggedIn(),
+    });
+  }, []);
 
   return (
-    
-    <userContext.Provider value={user}>
-        {children}
+    <userContext.Provider value={{ user, setUser }}>
+      {children}
     </userContext.Provider>
-    
-  )
+  );
 }
 
-export default userProvider
+export default UserProvider;
