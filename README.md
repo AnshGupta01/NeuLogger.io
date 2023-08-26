@@ -1,7 +1,7 @@
 # Full-stack Blogging Application
 
 This is a Full-stack project created using spring-boot as a backend and React.js for its frontend. Here a back-end API for a blogging application is created using several databases such as user, posts, comments, category etc.
-The front-end part of the project is under process right now.
+The front-end part of the project is now completed as well, screenshot is given at the end of this readme file.
 
 Aim behind this extensive project was to learn the intricasies of Spring-boot and its related implementations at a deep level.
 
@@ -15,6 +15,7 @@ Aim behind this extensive project was to learn the intricasies of Spring-boot an
 - PostMan (API Requests)
 - Other implementations like RequestMappings, PathVariables, SpringRest Controllers, Pagination, Sorting, Authentication & Tokenization etc
 - Cloud Hosting: AWS RDS and AWS Elastic Bean Stalk
+- Frontend with React.js using React router, context API, states and much more...
 
 Screenshots:
 
