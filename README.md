@@ -29,3 +29,7 @@ Screenshots:
 # PostMan API Client
 
 <img width="1440" alt="Screenshot (2)" src="https://github.com/AnshGupta01/blog-app-apis/assets/26479077/80e19648-f01e-4a44-aecd-0f7ca4a5aeb3">
+
+# Addition: Frontend with React.js
+![Screenshot](https://github.com/AnshGupta01/Fullstack-Blogging-app/assets/26479077/e7a94cb3-c2a6-40d4-9173-bdbea238ad2d)
+
