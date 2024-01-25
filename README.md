@@ -1,4 +1,4 @@
-# Full-stack Blogging Application
+# NeuLogger.io
 
 This is a Full-stack project created using spring-boot as a backend and React.js for its frontend. Here a back-end API for a blogging application is created using several databases such as user, posts, comments, category etc.
 The front-end part of the project is now completed as well, screenshot is given at the end of this readme file.
